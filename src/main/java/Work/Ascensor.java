@@ -1,25 +1,34 @@
 package Work;
 
+import static org.junit.Assert.assertEquals;
+
 public class Ascensor {
-    private int[] pisoEdificio= {0,0,0};
+    private int[] pisoEdificio = {0,0,0};
     private final int limiteAscensor = 1;
-    private int pisoActualAscensor=0;
-    private int pisoDestinoAscensor=0;
-    private String estadoPuerta="cerrado";
+    private int pisoActualAscensor = 0;
+    private int pisoDestinoAscensor = 0;
+    private String estadoPuerta = "cerrado";
 
     public String llamarAscensor(int cantidadPersonas,int pisoActual, int pisoDestino)throws Exception{
         verificarCapacidad(cantidadPersonas);
         crearPersona(pisoActual,pisoDestino);
-        String mensaje="";
-        if(pisoActualAscensor+1 == pisoActual){
-            estadoPuerta="abierto";
-            mensaje =  "Subirse inmediatamente";
+        String mensaje = controlAscensor(pisoActual, pisoDestino);
+        return mensaje;
+    }
+    private String controlAscensor(int pisoActual, int pisoDestino){
+        String mensaje = "";
+        if(pisoActualAscensor+1 == pisoActual && pisoDestinoAscensor == 0){
+            mensaje = "Abrir inmediatamente";
         }else{
-            estadoPuerta="abierto";
-            mensaje =  "Esperando ascensor";
+
+            mensaje = "Esperando ascensor";
         }
-        estadoPuerta="cerrado";
+        pisoActualAscensor = pisoActual;
+        estadoPuerta = "abierto";
+        pisoDestinoAscensor = pisoDestino;
+        estadoPuerta = "cerrado";
         limpiarPisoEdificio();
+        pisoActualAscensor = pisoDestino - 1;
         return mensaje;
     }
     private void limpiarPisoEdificio(){
@@ -53,7 +62,6 @@ public class Ascensor {
         verificarPiso(pisoDestino);
         pisoEdificio[pisoActual-1]=1;
         return "La persona esta en el piso "+pisoActual;
-
     }
 
 

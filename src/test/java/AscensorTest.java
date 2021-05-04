@@ -1,5 +1,4 @@
 import Work.Ascensor;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -15,7 +14,6 @@ public class AscensorTest {
         //Prepaarcion de la prueba
         ascensor = new Ascensor();
     }
-
     @Test
     public void soloHayCapacidadParaunaPersona() throws Exception{
         //Verificacion o Assert
@@ -49,24 +47,22 @@ public class AscensorTest {
     @Test
     public void personaAparecePrimerPiso() throws Exception{
         //Verificacion o Assert
-        assertEquals("Subirse inmediatamente",ascensor.llamarAscensor(1,1,2));
-
-
+        assertEquals("Abrir inmediatamente",ascensor.llamarAscensor(1,1,2));
     }
     @Test
     public void personaApareceSegundoPiso() throws Exception{
         //Verificacion o Assert
-        ascensor.llamarAscensor(1,1,2);
+        ascensor.llamarAscensor(1,2,3);
         assertEquals("Esperando ascensor",ascensor.llamarAscensor(1,2,3));
-
-
     }
     @Test
     public void conocerEstadoAscensor() throws Exception{
         //Verificacion o Assert
-        ascensor.llamarAscensor(1,1,2);
+        ascensor.llamarAscensor(1,1,3);
+        assertEquals("Piso actual del ascensor 3 y puerta cerrado",ascensor.verificarEstadoAscensor());
+        ascensor.llamarAscensor(1,2,1);
+        assertEquals("Piso actual del ascensor 1 y puerta cerrado",ascensor.verificarEstadoAscensor());
+        ascensor.llamarAscensor(1,3,2);
         assertEquals("Piso actual del ascensor 2 y puerta cerrado",ascensor.verificarEstadoAscensor());
-
     }
-
 }
